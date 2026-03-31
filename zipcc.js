@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs');
+const Tokenizer = require('./Token.js');
 
 let scieska = "";
 
@@ -14,7 +15,10 @@ process.argv.forEach(function (val, index, array) {
 
 try {
     const dane = fs.readFileSync(scieska, 'utf8');
-    console.log(dane);
+    //console.log(dane);
+    const Tokens = new Tokenizer(dane);
+    console.log(Tokens.getTokens())
+
 } catch (e) {
-    // coś tu nie gra
+    console.error("Error" + e.toString().slice(14));
 }
