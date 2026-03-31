@@ -26,7 +26,7 @@ class Lexer {
         for (let i = 0; i < this.tokens.length; i++) {
             let element = this.tokens[i];
 
-            console.log(element);
+            //console.log(element);
             if (element == ' ' || element == '\t') continue;
             else if (element == '(')  lexer.push(TokenType.LEFT_PAREN);
             else if (element == ')')  lexer.push(TokenType.RIGHT_PAREN);
