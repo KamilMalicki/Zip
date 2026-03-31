@@ -1,4 +1,7 @@
 # kolejny komentarz
-(out     65)
+#(out     65)
+(= $ 10)
+(out (repeat {-e $ 10} (= $ (+ $ 1))))
+
 
 # jakiś dalej komentarz

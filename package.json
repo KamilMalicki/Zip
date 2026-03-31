@@ -14,8 +14,8 @@
     "url": "git+https://github.com/KamilMalicki/Zip.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "KamilMalicki",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/KamilMalicki/Zip/issues"
   },
