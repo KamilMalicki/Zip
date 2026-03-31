@@ -16,11 +16,13 @@ process.argv.forEach(function (val, index, array) {
 });
 
 try {
-    const dane = fs.readFileSync(scieska, 'utf8'); // console.log(dane);
-    const tokens = new Tokenizer(dane); //console.log(tokens.getTokens())
-    const lexer = new Lexer(tokens.getTokens()); console.log(lexer.getLexeredCode())
-    //const parser = new Parser(lexer.getLexeredCode()); //console.log(parser.getCode())
+    const dane = fs.readFileSync(scieska, 'utf8'); 
+    const tokens = new Tokenizer(dane); 
+    const lexer = new Lexer(tokens.getTokens()); 
+    const parser = new Parser(lexer.getLexeredCode()); 
+    const ast = parser.parse();
+    console.log(JSON.stringify(ast, null, 2));
 
 } catch (e) {
-    console.error("Error" + e.toString().slice(14));
+    console.error(e.toString().slice(14));
 }
