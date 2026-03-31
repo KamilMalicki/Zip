@@ -11,7 +11,7 @@ class Tokenizer {
             if (line.startsWith('#')) { }
             else {
                 for (let i = 0; i < line.length; i++) {
-                    element.push(line[i]);
+                    element.push(line[i].trim());
                 }
             }
         });
