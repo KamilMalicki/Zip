@@ -34,10 +34,15 @@ class Parser {
             return this.Number();
         }
 
-        if (token.type === 'IDENTIFIER_$' || token.type === 'IDENTIFIER_%') {
+        if (token.type === 'IDENTIFIER_$') {
+            this.advance(); 
+            this.consume('LEFT_BRACKET', "Oczekiwano '[' po znaku $");
+            const indexExpr = this.parseExpression();
+            this.consume('RIGHT_BRACKET', "Oczekiwano ']' po indeksie pamięci");
+            
             return {
-                type: 'Identifier',
-                name: this.advance().type === 'IDENTIFIER_$' ? '$' : '%' 
+                type: 'MemoryAccess',
+                index: indexExpr
             };
         }
 

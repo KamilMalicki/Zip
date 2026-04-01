@@ -1,16 +1,17 @@
 const TokenType = Object.freeze({
-    LEFT_PAREN: 'LEFT_PAREN',
-    RIGHT_PAREN: 'RIGHT_PAREN',
-    IDENTIFIER_DOLAR: 'IDENTIFIER_$',
-    IDENTIFIER_PROCENT: 'IDENTIFIER_%',
-    OUT: 'OUT_FUNCTION',
-    IN: 'IN_FUNCTION',
-    ADD: 'PLUS',
-    MINUS: 'MINUS',
-    EQUAL: 'EQUAL',
-    REPEAT: 'REPEAT_FUNCTION',
-    NUMBER: 'NUMBER',
-    EOF: 'EOF'
+    LEFT_PAREN:         'LEFT_PAREN',
+    RIGHT_PAREN:        'RIGHT_PAREN',
+    IDENTIFIER_DOLAR:   'IDENTIFIER_$',
+    LEFT_BRACKET:       'LEFT_BRACKET',
+    RIGHT_BRACKET:      'RIGHT_BRACKET',
+    OUT:                'OUT_FUNCTION',
+    IN:                 'IN_FUNCTION',
+    ADD:                'PLUS',
+    MINUS:              'MINUS',
+    EQUAL:              'EQUAL',
+    REPEAT:             'REPEAT_FUNCTION',
+    NUMBER:             'NUMBER',
+    EOF:                'EOF'
 });
 
 class Lexer {
@@ -29,7 +30,8 @@ class Lexer {
             if (element === '(') lexer.push({ type: TokenType.LEFT_PAREN });
             else if (element === ')') lexer.push({ type: TokenType.RIGHT_PAREN });
             else if (element === '$') lexer.push({ type: TokenType.IDENTIFIER_DOLAR });
-            else if (element === '%') lexer.push({ type: TokenType.IDENTIFIER_PROCENT });
+            else if (element === '[') lexer.push({ type: TokenType.LEFT_BRACKET });
+            else if (element === ']') lexer.push({ type: TokenType.RIGHT_BRACKET });
             else if (element === '+') lexer.push({ type: TokenType.ADD });
             else if (element === '-') lexer.push({ type: TokenType.MINUS });
             else if (element === '=') lexer.push({ type: TokenType.EQUAL });

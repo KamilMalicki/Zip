@@ -4,7 +4,12 @@ class Interpreter {
     constructor() {
         this.environment = {
             '$': 0,
-            '%': 0,
+        };
+        /**
+         * to coś jest po to aby łapał np $[$[0]] -> $[2] -> 10 
+         */
+        this.memory =  {
+
         };
     }
 
@@ -28,22 +33,31 @@ class Interpreter {
     }
 
     evaluateCondition(condStr) {
-        const tokens = condStr.match(/(-e|-ne)|(\$|%)|(\d+)/g);
-        
+        const tokens = condStr.trim().match(/(-e|-ne|-l|-g)|(\$\[.+?\])|(-?\d+)/g);
         if (!tokens || tokens.length < 3) return false;
 
         const op = tokens[0];
-        const getVal = (raw) => {
-            if (raw === '$' || raw === '%') return this.environment[raw];
-            return parseInt(raw, 10);
+        const getVal = (r) => {
+            if (r.startsWith('$[')) {
+                let inner = r.slice(2, -1);
+                let i;
+                if (inner.startsWith('$[')) {
+                    i = getVal(inner);
+                } else {
+                    i = parseInt(inner, 10);
+                }
+                return this.memory[i] || 0;
+            }
+            return parseInt(r, 10);
         };
-
         const left = getVal(tokens[1]);
         const right = getVal(tokens[2]);
 
         switch (op) {
             case '-e':  return left === right;
             case '-ne': return left !== right;
+            case '-l':  return left < right;
+            case '-g':  return left > right;
             default:    return false;
         }
     }
@@ -63,11 +77,16 @@ class Interpreter {
             case 'Identifier': 
                 return this.environment[node.name];
 
-            case 'AssignmentStatement': {
-                const value = this.evaluate(node.value);
-                this.environment[node.target.name] = value;
-                return value;
+            case 'MemoryAccess':
+                return this.memory[this.evaluate(node.index)] || 0;
+
+            case 'AssignmentStatement':{
+                const i = this.evaluate(node.target.index);
+                const val = this.evaluate(node.value);
+                this.memory[i] = val;
+                return val;
             }
+
             case 'BinaryExpression': {
                 const left = this.evaluate(node.left);
                 const right = this.evaluate(node.right);
