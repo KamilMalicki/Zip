@@ -20,6 +20,7 @@ class Lexer {
     }
 
     isDigit(c) { return c >= '0' && c <= '9'; }
+    isAlpha(c) { return (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'); }
 
     getLexeredCode() {
         let lexer = [];
@@ -67,6 +68,12 @@ class Lexer {
                 
                 i--;
                 lexer.push({ type: TokenType.NUMBER, val: parseInt(numStr, 10) });
+            }
+            else if (element == "\"") {
+                i++;
+                element = this.tokens[i].charCodeAt(0);
+                lexer.push({ type: TokenType.NUMBER, val: parseInt(element, 10) });
+                i++
             }
         }
         lexer.push({ type: TokenType.EOF });
