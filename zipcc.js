@@ -9,40 +9,46 @@ const Parser = require('./Parser.js');
 const Interpreter = require('./Interpreter.js');
 const Compiler = require('./Compiler.js');
 
-const con = new Command();
-con
+const program = new Command();
+program
     .name('zipcc')
     .description('Zip esoteric language interpreter-compiler\nGithub: https://Github.com/KamilMalicki/Zip')
-    .argument('<fileName>', 'path to the input file')
-    .option('-i, --interpreter', 'Interpreting the code')
-    .option('-c, --compile <type>', 'Compiling code')
-    .option('-o, --output <path>', 'Returning compiled code under a given name')
-    .action((scieska, opcje) => {
+    .argument('<sciezkaPliku>', 'sciezka do pliku wejsciowego')
+    .option('-i, --interpreter', 'Tryb interpretera')
+    .option('-c, --compile', 'Kompilacja do formatu ELF')
+    .option('-o, --output <wyjscie>', 'Nazwa pliku wynikowego')
+    .action((sciezka, opcje) => {
 
         try {
-            const dane = fs.readFileSync(scieska, 'utf8');
-            const tokens = new Tokenizer(dane);                 //console.log(dane);
-            const lexer = new Lexer(tokens.getTokens());        // console.log(tokens.getTokens());
-            const parser = new Parser(lexer.getLexeredCode());  //console.log(lexer.getLexeredCode());
-            const ast = parser.parse();                         //console.log(JSON.stringify(ast, null, 2));
+            const dane = fs.readFileSync(sciezka, 'utf8');
+            const tokens = new Tokenizer(dane); //console.log(dane);
+            const lexer = new Lexer(tokens.getTokens());  // console.log(tokens.getTokens());
+            const parser = new Parser(lexer.getLexeredCode()); //console.log(lexer.getLexeredCode());
+            const ast = parser.parse(); //console.log(JSON.stringify(ast, null, 2));
 
             if (opcje.interpreter) {
                 const interp = new Interpreter();
-                Eval = interp.run(JSON.stringify(ast, null, 2))
+                interp.run(JSON.stringify(ast, null, 2));
+
+                if (opcje.compile) console.log('\n\n');
             }
             
             if (opcje.compile) {
-                console.log(`[ZIPCC]: ${opcje.compile}`);
-                const comp = new Compiler();
-                const LLVM = comp.run(JSON.stringify(ast, null, 2))
-                if (opcje.output) {
-                    console.log(`[ZIPLLD]: ${opcje.output}`);
-                }
+                const compiler = new Compiler();
+                const binarka = compiler.compile(ast);
+                
+                const nazwaWyjsciowa = opcje.output || 'program';
+                fs.writeFileSync(nazwaWyjsciowa, binarka);
+                
+                fs.chmodSync(nazwaWyjsciowa, 0o755);
+                
+                process.stdout.write(`[ZIPCC]: ${nazwaWyjsciowa}\n`);
+                process.stdout.write(`[ZIPLD]: ./${nazwaWyjsciowa}\n`);
             }
 
-        } catch (e) {
-            console.error(e.message || e.toString());
+        } catch (blad) {
+            console.error(blad.message || blad.toString());
         }
     });
 
-con.parse(process.argv);
+program.parse(process.argv);
