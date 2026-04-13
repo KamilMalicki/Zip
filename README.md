@@ -1,9 +1,26 @@
 # Zip Esoteric Language (zipcc)
+![GitHub repo size](https://img.shields.io/github/repo-size/KamilMalicki/Zip?style=flat-square)
+![GitHub last commit](https://img.shields.io/github/last-commit/KamilMalicki/Zip?style=flat-square&color=orange)
+![GitHub stars](https://img.shields.io/github/stars/KamilMalicki/Zip?style=flat-square&social)
+![Architecture](https://img.shields.io/badge/Architecture-x86__64-red?style=flat-square)
+![Format](https://img.shields.io/badge/Output-ELF_%7C_PE-CC0000?style=flat-square)
+![Type](https://img.shields.io/badge/Type-AOT_Compiler-informational?style=flat-square)
+![Paradigm](https://img.shields.io/badge/Paradigm-Stack--Based-blueviolet?style=flat-square)
+![Node.js](https://img.shields.io/badge/Node.js-v14%2B-339933?style=flat-square&logo=node.js)
+![Language](https://img.shields.io/badge/Language-JavaScript-F7DF1E?style=flat-square&logo=javascript)
+![Target](https://img.shields.io/badge/Target-x86__64_ASM-00599C?style=flat-square&logo=assemblyscript)
+![OS](https://img.shields.io/badge/OS-Linux_%7C_Windows-0078D4?style=flat-square&logo=linux)
+![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square)
 
-    [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-
-## Overview
+```text
+  _____  _         
+ |__  / (_) _ __   
+   / /  | || '_ \  
+  / /_  | || |_) | 
+ /____| |_|| .__/  
+           |_|     
+   Minimalist AOT Compiler
+```
 
 **Zip** is a minimalist, stack-and-memory-oriented esoteric language designed for high-performance native execution. This repository provides a complete toolchain, including a Lexer, Parser, AST Interpreter, and a native Ahead-of-Time (AOT) Compiler that generates x86_64 machine code for both Linux (ELF) and Windows (PE) platforms.
 
