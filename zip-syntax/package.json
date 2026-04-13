@@ -1,0 +1,25 @@
+{
+    "name": "zip-syntax",
+    "displayName": "Zip Language Support",
+    "description": "Kolorowanie składni dla języka Zip",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.0.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "zip",
+            "aliases": ["Zip", "zip"],
+            "extensions": [".zp"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "zip",
+            "scopeName": "source.zip",
+            "path": "./syntaxes/zip.tmLanguage.json"
+        }]
+    }
+}

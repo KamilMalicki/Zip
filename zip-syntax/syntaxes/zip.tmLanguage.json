@@ -1,0 +1,48 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Zip",
+    "patterns": [
+        { "include": "#comments" },
+        { "include": "#keywords" },
+        { "include": "#numbers" },
+        { "include": "#memory" },
+        { "include": "#strings" }
+    ],
+    "repository": {
+        "comments": {
+            "patterns": [{
+                "name": "comment.line.number-sign.zip",
+                "match": "#.*$"
+            }]
+        },
+        "keywords": {
+            "patterns": [{
+                "name": "keyword.control.zip",
+                "match": "\\b(out|in|repeat)\\b"
+            },
+            {
+                "name": "keyword.operator.zip",
+                "match": "(\\+|\\-|\\=)"
+            }]
+        },
+        "memory": {
+            "patterns": [{
+                "name": "variable.other.zip",
+                "match": "\\$\\["
+            }]
+        },
+        "numbers": {
+            "patterns": [{
+                "name": "constant.numeric.zip",
+                "match": "\\b[0-9]+\\b"
+            }]
+        },
+        "strings": {
+            "patterns": [{
+                "name": "string.quoted.double.zip",
+                "match": "\".\""
+            }]
+        }
+    },
+    "scopeName": "source.zip"
+}
