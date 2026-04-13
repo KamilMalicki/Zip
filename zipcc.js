@@ -8,6 +8,7 @@ const Lexer = require('./Lexer.js');
 const Parser = require('./Parser.js');
 const Interpreter = require('./Interpreter.js');
 const Compiler = require('./Compiler.js');
+const { exit } = require('process');
 
 const program = new Command();
 program
@@ -20,6 +21,10 @@ program
     .action((sciezka, opcje) => {
 
         try {
+            if (!sciezka.toString().endsWith(".zp")) {
+                console.error("Bledny format")
+                exit(-1);
+            }
             const dane = fs.readFileSync(sciezka, 'utf8');
             const tokens = new Tokenizer(dane); //console.log(dane);
             const lexer = new Lexer(tokens.getTokens());  // console.log(tokens.getTokens());
