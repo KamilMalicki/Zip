@@ -11,18 +11,30 @@ const Compiler = require('./Compiler.js');
 const { exit } = require('process');
 
 const program = new Command();
+
 program
     .name('zipcc')
     .description('Zip esoteric language interpreter-compiler\nGithub: https://Github.com/KamilMalicki/Zip')
-    .argument('<sciezkaPliku>', 'sciezka do pliku wejsciowego')
+    .argument('<file.zp>', 'sciezka do pliku wejsciowego')
     .option('-i, --interpreter', 'Tryb interpretera')
     .option('-c, --compile', 'Kompilacja do formatu ELF')
     .option('-o, --output <wyjscie>', 'Nazwa pliku wynikowego')
     .action((sciezka, opcje) => {
 
         try {
+            /*
+            i = 0;
+            process.argv.forEach(function (val, index, array) {
+                console.log(index + ': ' + val + ' - ' + array[index]);
+                i++;
+            });
+            */
             if (!sciezka.toString().endsWith(".zp")) {
-                console.error("Bledny format")
+                console.error("error: no valid file format")
+                exit(-1);
+            }  
+            if (Object.keys(opcje).length === 0) {
+                console.error("error: please provide options (-i or -c) for using the program");
                 exit(-1);
             }
             const dane = fs.readFileSync(sciezka, 'utf8');
