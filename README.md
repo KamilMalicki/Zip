@@ -49,8 +49,6 @@ Zip is **Turing Complete** as it meets the requirements for a Universal Turing M
 
 ## Compiler Architecture
 
-## Compiler Architecture
-
 The compiler translates the AST into raw x86_64 machine code without an external assembler or linker.
 
 ### Linux (ELF)
